@@ -15,22 +15,23 @@ document.addEventListener('DOMContentLoaded', function (event) {
      * @param boutonClicked Le bouton qui a été cliqué pour pouvoir le désactiver
      */
     function afficherDansParagraphe(paragraphe, liste, boutonClicked) {
+        console.log(boutonClicked)
         // Affiche le contenu de liste dans le paragraphe
         // Ecrire votre code ici
         let contenu = "<table class='table table-striped table-bordered center'> <tr> <th>#</th> <th>Code</th> <th>Pays</th> <th>Drapeau</th> </tr>";
         let cpt = 0;
         for (const pays of liste) {
             contenu += "<tr>";
-            contenu += "<td>" + cpt + "</td>";
-            contenu += "<td>" + pays.code + "</td>";
-            contenu += "<td>" + pays.nom + "</td>";
-            contenu += "<td><img class='hightFlag' src='" + pays.drapeau + "'></td>";
+            contenu += "<td class='centrer'>" + cpt + "</td>";
+            contenu += "<td class='centrer'>" + pays.code + "</td>";
+            contenu += "<td class='centrer'>" + pays.nom + "</td>";
+            contenu += "<td class='centrer'><img class='hightFlag' src='" + pays.drapeau + "'></td>";
             contenu += "</tr>";
 
             cpt++;
         }
         contenu += "</table>";
-        paragraphe.parentNode.innerHTML = contenu;
+        paragraphe.innerHTML = contenu;
 
         switch (boutonClicked) {
             case leBoutonFr:
