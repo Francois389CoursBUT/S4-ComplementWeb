@@ -1,0 +1,67 @@
+/* Code CSS TP4 */
+
+
+.centrer{
+	/* Centrage dans les blocs */
+	text-align:center;
+}
+
+.padding{
+	/* Marge intérieure pour les blocs */
+	padding:5px;
+}
+
+.hightFlag {
+	/* Drapeaux dans les boutons de choix de langue */
+	height:50px;
+}
+
+.quizz {
+	/* Bloc pour les cases ) cocher et block erreur ou ok à droite */
+	font-size:2em;
+}
+
+#theFlag {
+	/* Drapeau affiché dont on doit trouver le pays */
+	border: 1px solid black;
+	max-height:300px;
+}
+
+.flagKO {
+	/* Taille Drapeau case erreur */
+	height:100px;
+	border: 1px solid black;
+}
+
+.flagOK {
+	/* Taille Drapeau case OK*/
+	height:250px;
+}
+
+.radioKO{
+	/* Couleur et style des radios cochés mais en erreur */
+	color:red;
+}
+.radioOK{
+	/* Couleur et style des radios cochés avec bon pays */
+	color:green;
+}
+
+.radioNonTeste {
+	/* Couleur radios non encore selectionnés */
+	color:black;
+}
+
+.radiosKOApresVictoire  {
+	/* Couleur radios désactivés apres victoire */
+	color:grey;
+}
+
+#score {
+  position: fixed;
+  right: 0;
+  top: 30%;
+  width: 8em;
+  margin-top: -2.5em;
+  margin-right: 5px;
+}

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="fr">
+	<head>
+		<meta charset="utf-8" />
+		<title>TP4-2 Quizz Drapeau</title>
+		<link rel="stylesheet" href="bootstrap/css/bootstrap.css" />
+		<link rel="stylesheet" href="css/monStyle.css" />
+	</head>
+	<body>
+			
+		<!-- TP4 Javascript QUIZZ Drapeaux-->
+		
+		<div class="container">
+			<div class="row">
+				<div class="col-xs-12 centrer padding">
+					<h1>TP4-2 Quizz Drapeau </h1>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-12 col-sm-4 centrer padding">
+					<button type="button" class="btn btn-primary btn-lg btn-block" id="leBoutonFr" value="" >Jouer en français <img src="https://flagcdn.com/h24/fr.png"></button>
+				</div>
+				<div class="col-xs-12 col-sm-4 centrer padding">
+					<button type="button" class="btn btn-primary btn-lg btn-block" id="leBoutonEn" >Play in english <img src="https://flagcdn.com/h24/gb.png"></button>
+				</div>
+				<div class="col-xs-12 col-sm-4 centrer padding">
+					<button type="button" class="btn btn-primary btn-lg btn-block" id="leBoutonEs"  >Jugar en español <img src="https://flagcdn.com/h24/es.png"></button>
+				</div>
+			</div>
+			<div class="row" id="zoneQuestion">
+				<div class="col-xs-12 padding ">
+					<div class="centrer"> 
+						<img src="" id='theFlag'>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-8 padding ">
+					<div id='theQuestion' class="quizz">
+
+					</div>
+					<div id='Propositions' class="quizz "> 
+						<input type="radio" name="radios" value="" id="radio0"><span id="labelRadio0"></span><br>
+						<input type="radio" name="radios" value="" id="radio1"><span id="labelRadio1"></span><br>
+						<input type="radio" name="radios" value="" id="radio2"><span id="labelRadio2"></span><br>
+						<input type="radio" name="radios" value="" id="radio3"><span id="labelRadio3"></span><br>
+						<input type="radio" name="radios" value="" id="radio4"><span id="labelRadio4"></span><br>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-4 padding centrer quizz" id="erreur">
+				</div>
+				<div class="col-xs-12 padding ">
+					<button type="button" class="btn btn-primary btn-lg btn-block" id="rejouer">Rejouer</button>
+				</div>
+			</div>
+		</div>
+
+		<script src="TP4-Recup_Donnees.js"></script>
+		<script src="TP4-2.js"></script>
+
+	</body>
+</html>
