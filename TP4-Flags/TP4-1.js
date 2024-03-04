@@ -10,17 +10,27 @@ document.addEventListener('DOMContentLoaded', function (event) {
 
     /**
      *
-     * @param paragraphe
+     * @param paragraphe Le paragraphe dans lequel on veut afficher le contenu de liste
      * @param liste Une lsite à deux niveaux
+     * @param boutonClicked Le bouton qui a été cliqué pour pouvoir le désactiver
      */
     function afficherDansParagraphe(paragraphe, liste, boutonClicked) {
         // Affiche le contenu de liste dans le paragraphe
         // Ecrire votre code ici
-        let contenu = "";
+        let contenu = "<table class='table table-striped table-bordered center'> <tr> <th>#</th> <th>Code</th> <th>Pays</th> <th>Drapeau</th> </tr>";
+        let cpt = 0;
         for (const pays of liste) {
-            contenu += "Numéro = " + pays.code + "Code Pays : " + pays.code + " Nom = " + pays.nom + " Drapeau = " + pays.drapeau + "<br>";
+            contenu += "<tr>";
+            contenu += "<td>" + cpt + "</td>";
+            contenu += "<td>" + pays.code + "</td>";
+            contenu += "<td>" + pays.nom + "</td>";
+            contenu += "<td><img class='hightFlag' src='" + pays.drapeau + "'></td>";
+            contenu += "</tr>";
+
+            cpt++;
         }
-        paragraphe.innerHTML = contenu;
+        contenu += "</table>";
+        paragraphe.parentNode.innerHTML = contenu;
 
         switch (boutonClicked) {
             case leBoutonFr:
