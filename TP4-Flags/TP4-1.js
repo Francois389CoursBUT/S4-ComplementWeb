@@ -20,6 +20,7 @@ document.addEventListener('DOMContentLoaded', function (event) {
         // Ecrire votre code ici
         let contenu = "<table class='table table-striped table-bordered center'> <tr> <th>#</th> <th>Code</th> <th>Pays</th> <th>Drapeau</th> </tr>";
         let cpt = 0;
+        console.log(liste.length)
         for (const pays of liste) {
             contenu += "<tr>";
             contenu += "<td class='centrer'>" + cpt + "</td>";
