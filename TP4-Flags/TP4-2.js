@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function (event) {
     let partie;
 
     const zoneQuestion = document.getElementById("zoneQuestion");
-    zoneQuestion.style.display = "none";
+
 
     const leBoutonFr = document.getElementById("leBoutonFr");
     const leBoutonEn = document.getElementById("leBoutonEn");
@@ -15,6 +15,7 @@ document.addEventListener('DOMContentLoaded', function (event) {
     const theFlag = document.getElementById("theFlag");
     const theQuestion = document.getElementById("theQuestion");
     const erreur = document.getElementById("erreur");
+    const rejouer = document.getElementById("rejouer");
 
     const tabLabelRadio = [
         document.getElementById("labelRadio0"),
@@ -33,25 +34,37 @@ document.addEventListener('DOMContentLoaded', function (event) {
     ];
 
 
+    //On cache la zone de question
+    zoneQuestion.style.display = "none";
+
+
     class Partie {
 
-        #score;
-        #nbQuestions;
         #listeSelectionner;
         #paysChoisi;
 
+        /**
+         * @param listePays La liste de tous les pays
+         * @param langue La langue de la liste des pays. Peut-être "fr", "en" ou "es"
+         */
         constructor(listePays, langue) {
-            this.score = 0;
-            this.nbQuestions = 0;
             this.listePays = listePays;
             this.langue = langue;
         }
+x
 
         /**
-         * @param liste La liste de tous les pays
-         * @param langue La langue de la liste des pays. Peut-être "fr", "en" ou "es"
+         * Prépare une question
+         * Affiche le drapeau du pays choisi alétoirement
+         * et les 5 réponses possibles
          */
         preparerQuestion() {
+            //On cache le bouton 'rejouer'
+            rejouer.style.display = "none";
+
+            //On supprime le message d'erreur
+            erreur.innerHTML = "";
+
             //On récupère 5 pays aléatoires dans la liste
             this.listeSelectionner = get5RandomCountries(this.listePays);
             console.log(this.listeSelectionner)
@@ -74,7 +87,8 @@ document.addEventListener('DOMContentLoaded', function (event) {
                     theQuestion.innerHTML = "What country/state is this flag from ?";
             }
 
-            deselectionnerTousLesRadios();
+            // On remet les jeux dans l'état initial
+            resetTousLesRadios();
 
             //On affiche les 5 pays dans la zone de question
             for (let i = 0; i < this.listeSelectionner.length; i++) {
@@ -85,6 +99,7 @@ document.addEventListener('DOMContentLoaded', function (event) {
                 tabRadio[i].value = this.listeSelectionner[i].code;
             }
 
+            //On active les radios
             for (let i = 0; i < tabRadio.length; i++) {
                 tabRadio[i].addEventListener("click", () => {
                     this.radioClicked(i);
@@ -92,6 +107,10 @@ document.addEventListener('DOMContentLoaded', function (event) {
             }
         }
 
+        /**
+         * Appelée lorsque l'utilisateur clique sur une radio
+         * @param index L'index de la radio qui est cliqué
+         */
         radioClicked(index) {
             console.log(tabRadio[index]);
             console.log(tabRadio[index].value);
@@ -103,17 +122,42 @@ document.addEventListener('DOMContentLoaded', function (event) {
             }
         }
 
+        /**
+         * Appelée lorsque la mauvaise réponse est donnée
+         * @param index L'index de la radio qui est cliqué
+         */
         mauvaiseReponse(index) {
             console.log("Mauvaise réponse");
             tabLabelRadio[index].style.color = "red";
-            erreur.innerHTML = "Mauvaise réponse";
+            let paysSaisie = this.listeSelectionner[index];
+            switch (this.langue) {
+                case "fr":
+                    erreur.innerHTML = "Mauvaise réponse, voici le drapeau du pays/état " + paysSaisie.nom + "<br> <img class='flagKO' src='" + paysSaisie.drapeau + "'>";
+                    break;
+                case "es":
+                    erreur.innerHTML = "Respuesta incorrecta, aquí está la bandera del país/estado " + paysSaisie.nom + "<br> <img class='flagKO' src='" + paysSaisie.drapeau + "'>";
+                    break;
+                default:
+                    erreur.innerHTML = "Wrong answer, here is the flag of the country/state " + paysSaisie.nom + "<br> <img class='flagKO' src='" + paysSaisie.drapeau + "'>";
+            }
 
         }
 
+        /**
+         * Appelée lorsque la bonne réponse est donnée
+         * @param index L'index de la radio qui est cliqué
+         */
         bonneReponse(index) {
             console.log("Bonne réponse");
-            this.score++;
             tabLabelRadio[index].style.color = "green";
+
+            //Désactiver les radios
+            for (let i = 0; i < tabRadio.length; i++) {
+                tabRadio[i].disabled = true;
+            }
+
+            erreur.innerHTML = "<img class='flagOK' src=\"images/OK.jpg\">";
+            rejouer.style.display = "block";
         }
     }
 
@@ -138,9 +182,11 @@ document.addEventListener('DOMContentLoaded', function (event) {
      * Cette fonction parcourt tous les éléments du tableau 'tabRadio' et décoche les boutons radio.
      * Elle est utilisée pour réinitialiser l'état des boutons radio à chaque nouvelle question.
      */
-    function deselectionnerTousLesRadios() {
+    function resetTousLesRadios() {
         for (let i = 0; i < tabRadio.length; i++) {
             tabRadio[i].checked = false;
+            tabRadio[i].disabled = false;
+            tabLabelRadio[i].style.color = "black";
         }
     }
 
@@ -172,6 +218,10 @@ document.addEventListener('DOMContentLoaded', function (event) {
         leBoutonFr.disabled = false;
 
         partie = new Partie(list_Es, "es");
+        partie.preparerQuestion();
+    });
+
+    rejouer.addEventListener("click", function () {
         partie.preparerQuestion();
     });
 
