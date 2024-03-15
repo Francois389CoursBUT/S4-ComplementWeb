@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="fr">
+	<head>
+		<meta charset="utf-8" />
+		<title>WEB avancé TP5 JQUERY</title>
+
+		<!-- Bootstrap CSS -->
+		<link href="bootstrap/css/bootstrap.css" rel="stylesheet">
+		
+		<!-- Lien vers mon css -->
+		<link href="css/TP5.css" rel="stylesheet">
+		
+		<link href="fontawesome-free-6.2.1-web/css/all.css" rel="stylesheet">
+	
+	</head>
+	<body>
+		<div class="container">
+			<div class="row">
+				<div class="col-xs-12 cadresCom">
+					<h1>-- Recherche des informations d'une commune --</h1>
+					<h1 id="ZoneErreur" class="erreur"></h1>
+				</div>
+				<div class="col-xs-4 cadresCom hauteurMin">
+					<div id="zoneRegions">
+						<br/>
+						<label for="region">Région (<span id="listeRegionsNB"></span>) : </label>
+						<select name="region" class="form-control" id="listeRegions">
+						</select>
+						<br>
+						
+					</div>
+				</div>
+			
+				<div class="col-xs-4 cadresCom hauteurMin">
+					<div id="zoneDepartements">
+						<br/>
+						
+						<label for="departement">Département (<span id="listeDepartementsNB"></span>) : </label>
+						
+						<select name="departement"  class="form-control" id="listeDepartements">
+						</select>
+						<br>
+						
+					</div>
+			
+				</div>
+				
+				<div class="col-xs-4 cadresCom hauteurMin">
+					<div  id="zoneCommunes">
+						<br/>
+						
+						<label for="commune">Commune (<span id="listeCommunesNB"></span>) : </label>
+
+						<select name="commune"  class="form-control"  id="listeCommunes">
+						</select>
+						<br>
+					</div>
+
+				</div>
+			</div>
+			<br><br>
+			
+
+			<div class="row" id="zoneResultat">
+				<div class="col-xs-12 cadresCom hauteurMinResultat">
+					<div class='row '>
+						<div class='col-xs-12 '>
+							<h1><span id="libelleNomCommune"></h1>
+						</div>
+						<div class='col-xs-4 cadreAGauche'>
+							Région : <span id="libelleRegion"></span><br/><br/>
+							Département : <span id="libelleDepartement"></span><br/><br/>
+							Commune : <span id="libelleCommune"></span><br/><br/>
+							Code SIREN : <span id="LibelleSiren"></span><br/>
+							
+						</div>
+						<div class='col-xs-4 cadreAGauche'>
+								Communauté de communes : <span id="codeComCom"></span><br>
+								<span id="NomComCom"></span> <br>
+								
+								<span id="nbHComCom"></span> habitants
+								
+								<br><br>Communes : 
+
+								<ul id="ListeCommunesComCom">
+								
+								</ul>
+
+						</div>
+						<div class='col-xs-4 cadreAGauche' >
+							Habitants : <span id="nbHabitantsCommune"></span><br/><br/>
+							Codes postaux : 
+							<ul id="CodesPostaux">
+
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>	
+		</div>
+		<br><br>
+		
+		<div id="loaderDiv">
+			<i class="fa fa-spinner fa-spin fa-5x"></i>
+		</div>
+	
+		<script src="jQuery/jquery-3.6.1.js"></script>
+		<script src="TP5.js"></script>
+	</body>
+</html>
