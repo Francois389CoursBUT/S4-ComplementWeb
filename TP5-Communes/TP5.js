@@ -213,21 +213,31 @@ $(function () {
                 CodesPostaux.append($('<li>').text(codePostal));
             }
 
-            //On récupère les informations de la communauté de commune et on les affiche
-            $.getJSON(urlDetailComCom(data.codeEpci), function (data) {
-                codeComCom.text(data.code);
-                NomComCom.text(data.nom);
-                nbHComCom.text(data.population);
-            })
+            if (typeof data.codeEpci !== 'undefined') {
+                //On récupère les informations de la communauté de commune et on les affiche
+                $.getJSON(urlDetailComCom(data.codeEpci), function (data) {
+                    codeComCom.text(data.code);
+                    NomComCom.text(data.nom);
+                    nbHComCom.text(data.population);
+                })
 
-            //On récupère les communes de la communauté de commune et on les affiche
-            $.getJSON(urlCommunesComCom(data.codeEpci), function (data) {
+                console.log("On lance la recherche les communes de la ComCom")
+                //On récupère les communes de la communauté de commune et on les affiche
+                $.getJSON(urlCommunesComCom(data.codeEpci), function (data) {
+                    ListeCommunesComCom.empty();
+                    for (const commune of data) {
+                        ListeCommunesComCom.append($('<li>').text(commune.nom));
+                    }
+                    spinner.stop();
+                    console.log("Recherche des communes de la ComCom fini")
+                })
+            } else {
+                codeComCom.text("-");
+                NomComCom.empty();
+                nbHComCom.text("-");
                 ListeCommunesComCom.empty();
-                for (const commune of data) {
-                    ListeCommunesComCom.append($('<li>').text(commune.nom));
-                }
                 spinner.stop();
-            })
+            }
 
         })
     }
