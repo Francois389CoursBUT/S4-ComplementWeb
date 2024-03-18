@@ -95,6 +95,42 @@ $(function () {
         }
     }
 
+    let map = undefined;
+
+    /**
+     * Affiche une carte centrée sur une cible
+     * @param lat {number} Latitude de la cible
+     * @param long {number} Longitude de la cible
+     * @param afficherMarqueur {boolean} Afficher un marqueur sur la carte si true
+     */
+    function afficherMap(lat, long, afficherMarqueur = true) {
+        if (map === undefined) { //Si la map n'a pas encore été créé
+            map = L.map('map').setView([lat, long], 13);
+
+            L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                maxZoom: 19,
+                attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+            }).addTo(map);
+            
+        } else { //Si la map a déjà été créé, on la recentre
+            map.setView([lat, long], 13);
+        }
+
+        if (afficherMarqueur) {
+            var marker = L.marker([lat, long]).addTo(map);
+        }
+    }
+
+    /**
+     * Affiche une carte en fonction d'une ville
+     * @param ville {string} Nom de la ville visé
+     */
+    function afficherMapParVille(ville) {
+        $.getJSON('https://nominatim.openstreetmap.org/search?city=' + ville + '&format=json', function (data) {
+            afficherMap(data[0].lat, data[0].lon);
+        });
+    }
+
     ///////////////////////////////////
     ////Initialisation des éléments////
     ///////////////////////////////////
@@ -221,7 +257,6 @@ $(function () {
                     nbHComCom.text(data.population);
                 })
 
-                console.log("On lance la recherche les communes de la ComCom")
                 //On récupère les communes de la communauté de commune et on les affiche
                 $.getJSON(urlCommunesComCom(data.codeEpci), function (data) {
                     ListeCommunesComCom.empty();
@@ -229,7 +264,6 @@ $(function () {
                         ListeCommunesComCom.append($('<li>').text(commune.nom));
                     }
                     spinner.stop();
-                    console.log("Recherche des communes de la ComCom fini")
                 })
             } else {
                 codeComCom.text("-");
@@ -238,6 +272,8 @@ $(function () {
                 ListeCommunesComCom.empty();
                 spinner.stop();
             }
+
+            afficherMapParVille(data.nom);
 
         })
     }
