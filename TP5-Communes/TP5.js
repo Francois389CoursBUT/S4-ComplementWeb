@@ -111,7 +111,7 @@ $(function () {
                 maxZoom: 19,
                 attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
             }).addTo(map);
-            
+
         } else { //Si la map a déjà été créé, on la recentre
             map.setView([lat, long], 13);
         }
